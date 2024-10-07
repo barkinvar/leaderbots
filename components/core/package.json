@@ -1,0 +1,30 @@
+{
+  "name": "core",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Core components for the project",
+  "scripts": {
+    "rest-api:dev": "bun run --watch --watch-preserve-output ./entry-points/rest-api | pino-pretty --colorize"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^22.7.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0",
+    "tsx": "^4.19.1",
+    "esbuild": "^0.24.0",
+    "esbuild-register": "^3.6.0",
+    "eslint": "^9.12.0",
+    "pino-pretty": "^11.2.2",
+    "prisma": "^5.20.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "@sinclair/typebox": "^0.33.15",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.1"
+  }
+}

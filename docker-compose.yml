@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  coredb:
+    image: postgres:17-alpine
+    # container_name: coredb
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: core
+    ports:
+      - "5432:5432"
+    volumes:
+      - coredb_data:/var/lib/postgresql/data
+
+  core-rest-api:
+    build:
+      context: ./components/core
+      target: core-rest-api
+    # container_name: core-rest-api
+    volumes:
+      - ./components/core:/home/leaderbots/components/core
+      - /home/leaderbots/components/core/node_modules
+    ports:
+      - "8000:8000"
+    depends_on:
+      - coredb
+
+  web:
+    build: ./components/web
+    # container_name: leaderbots-web
+    volumes:
+      - ./components/web:/home/leaderbots/components/web
+      - /home/leaderbots/components/web/node_modules
+      - /home/leaderbots/components/web/.next
+    ports:
+      - "3000:3000"
+    depends_on:
+      - core-rest-api
+
+volumes:
+  coredb_data:
+    driver: local
